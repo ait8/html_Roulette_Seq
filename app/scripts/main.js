@@ -63,7 +63,9 @@ var RouletteSeqence = function() {
   };
 
   $('#seqButton').on('click', function(){
+    if(sequenceNow) {return true;}
     execSeqence();
+    return true;
   });
 
   var keyCode = {};
@@ -71,7 +73,7 @@ var RouletteSeqence = function() {
 
   $('#addNameBox').focus().on('keydown', function(e){
     var keycode = e.keyCode ? e.keyCode : e.which;
-    if (keycode === keyCode.Enter && $(this).val() !== '') {
+    if (keycode == keyCode.Enter && $(this).val() != '') {
       var name = $(this).val();
       addName(name);
       $(this).val('');
