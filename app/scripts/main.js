@@ -1,5 +1,6 @@
 /* jshint devel:true */
 var RouletteSeqence = function() {
+  'use strict';
   console.log('RouletteSeqence Init');
   var sequenceNow = false;
   var addName = function(name){
@@ -18,7 +19,7 @@ var RouletteSeqence = function() {
     nameCont.on('click', '.table-cont-del', function(){
       $(this).closest('.table-content').remove();
     })
-      .find(".table-cont-name").html(name);
+      .find('.table-cont-name').html(name);
     $('#resultContainer').append(nameCont);
   };
 
@@ -34,7 +35,7 @@ var RouletteSeqence = function() {
   };
 
   var execSeqence = function(){
-    if(sequenceNow) return true;
+    if(sequenceNow) {return true;}
     sequenceNow = true;
     var useCont = $('.table-cont-use:checked').closest('.table-content'),
         notUseCont = $('.table-content').not(useCont), i;
@@ -51,7 +52,7 @@ var RouletteSeqence = function() {
           .appendTo('#resultContainer')
           .show('slow');
       }
-      notUseCont.find('.table-cont-num').html("#");
+      notUseCont.find('.table-cont-num').html('#');
       notUseCont.appendTo('#resultContainer').show('slow');
       $('.table-content').on('click', '.table-cont-del', function(){
         $(this).closest('.table-content').remove();
@@ -66,23 +67,23 @@ var RouletteSeqence = function() {
   });
 
   var keyCode = {};
-  keyCode['Enter'] = '13';
+  keyCode.Enter = '13';
 
   $('#addNameBox').focus().on('keydown', function(e){
     var keycode = e.keyCode ? e.keyCode : e.which;
-    if (keycode == keyCode['Enter'] && $(this).val() != '') {
+    if (keycode === keyCode.Enter && $(this).val() !== '') {
       var name = $(this).val();
       addName(name);
-      $(this).val("");
+      $(this).val('');
     }
     return true;
   });
 
-  $('#addNameButton').on('click', function(e){
+  $('#addNameButton').on('click', function(){
     var name = $('#addNameBox').val();
-    if (name == '') return true;
+    if (name === '') {return true;}
     addName(name);
-    $('#addNameBox').val("");
+    $('#addNameBox').val('');
     return true;
   });
 };
