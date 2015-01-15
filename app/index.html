@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>roulette_seq</title>
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group col-sm-8">
+            <input id="addNameBox" type="text" value="" class="form-control"
+                   placeholder="追加したい名前を入力して下さい"/>
+          </div> <!-- form-group col-sm-8 -->
+          <div class="form-group col-sm-4">
+            <button id="addNameButton"
+                    class="btn btn-primary btn-block">
+              <span class="glyphicon glyphicon-plus"></span>
+              追加する</button>
+          </div> <!-- form-group col-sm-4 -->
+        </div> <!-- col-sm-12 -->
+        <div class="col-sm-10 col-sm-offset-1">
+          <table class="table table-striped" id="resultContainer">
+            <tr id="tableHeader">
+              <th>番号</th>
+              <th>名前</th>
+              <th>含める</th>
+              <th>削除</th>
+            </tr>
+          </table>
+        </div> <!-- col-sm-10 col-sm-offset-1 -->
+      </div> <!-- row -->
+      <div class="col-sm-12">
+        <button id="seqButton"
+                class="btn btn-info btn-lg btn-block">
+
+          順番を決める</button>
+      </div>
+    </div> <!-- container -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>
