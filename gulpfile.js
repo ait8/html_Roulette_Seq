@@ -15,6 +15,13 @@ gulp.task('styles', function () {
     .pipe(gulp.dest('.tmp/styles'));
 });
 
+// gulp.task('jshint', function () {
+//   return gulp.src('app/scripts/**/*.js')
+//     .pipe($.jshint())
+//     .pipe($.jshint.reporter('jshint-stylish'))
+//     .pipe($.jshint.reporter('fail'));
+// });
+
 gulp.task('html', ['styles'], function () {
   var lazypipe = require('lazypipe');
   var cssChannel = lazypipe()
