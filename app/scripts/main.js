@@ -17,10 +17,11 @@ var RouletteSeqence = function() {
                      '  </td>' +
                      '</tr>');
     nameCont.on('click', '.table-cont-del', function(){
-      $(this).closest('.table-content').remove();
+      $(this).closest('.table-content')
+        .hide('fast',function(){$(this).remove();});
     })
       .find('.table-cont-name').html(name);
-    $('#resultContainer').append(nameCont);
+    nameCont.hide().appendTo('#resultContainer').show('fast');
   };
 
   var shuffle = function(array) {
@@ -40,25 +41,30 @@ var RouletteSeqence = function() {
     var useCont = $('.table-cont-use:checked').closest('.table-content'),
         notUseCont = $('.table-content').not(useCont), i;
 
-    $('.table-content').hide('slow', function(){
-      useCont.remove();
-      notUseCont.remove();
+    $('.table-content').remove();
 
-      var shuffledUseCont = shuffle(useCont),
-          shuffledUseContLength = shuffledUseCont.length;
-      for(i = 0; i < shuffledUseContLength; i++ ){
-        $(shuffledUseCont[i]).find('.table-cont-num').html(i+1);
-        $(shuffledUseCont[i])
-          .appendTo('#resultContainer')
-          .show('slow');
-      }
-      notUseCont.find('.table-cont-num').html('#');
-      notUseCont.appendTo('#resultContainer').show('slow');
-      $('.table-content').on('click', '.table-cont-del', function(){
-        $(this).closest('.table-content').remove();
-      });
+    var shuffledUseCont = shuffle(useCont),
+        shuffledUseContLength = shuffledUseCont.length,
+        tableContList = [];
+    Array.prototype.forEach.call(shuffledUseCont, function(item, index){
+      $(item).find('.table-cont-num').html(index + 1);
+      tableContList.push(item);
     });
-    sequenceNow = false;
+    notUseCont.find('.table-cont-num').html('#');
+    tableContList = tableContList.concat(notUseCont);
+    tableContList.forEach(function(item, index, array){
+      setTimeout(function(){
+        $(item).on('click', '.table-cont-del', function(){
+          $(this).closest('.table-content')
+            .hide('fast',function(){$(this).remove();});
+        })
+          .appendTo('#resultContainer')
+          .show('fast');
+        if (index == array.length - 1) {
+          sequenceNow = false;
+        }
+      }, 500 * (index + 1));
+    });
     return true;
   };
 
