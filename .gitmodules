@@ -1,0 +1,4 @@
+[submodule "dist"]
+	path = dist
+	url = git@github.com:BLThunder1991/html_Roulette_Seq.git
+	branch = gh-pages
