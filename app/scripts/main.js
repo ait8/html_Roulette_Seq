@@ -22,6 +22,15 @@ var RouletteSeqence = function() {
     })
       .find('.table-cont-name').html(name);
     nameCont.hide().appendTo('#resultContainer').show('fast');
+    var names = [];
+    Array.prototype.map.call(
+      document.getElementsByClassName('table-cont-name'),
+      function(current){
+        names.push(current.innerHTML);
+      });
+    window.location.hash = names.reduce(function(sum,item){
+      return sum + "&" + item;
+    });;
   };
 
   var shuffle = function(array) {
@@ -94,6 +103,12 @@ var RouletteSeqence = function() {
     $('#addNameBox').val('');
     return true;
   });
+  if (window.location.hash) {
+    var name_list = window.location.hash.replace('#','').split('&');
+    name_list.map(function(current){
+      addName(current);
+    });
+  }
 };
 
 RouletteSeqence();
