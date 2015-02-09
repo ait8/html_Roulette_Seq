@@ -5,7 +5,7 @@ var RouletteSeqence = function() {
   var sequenceNow = false;
 
   var urlHashUpdate = function(){
-    var names = [];
+    var names = [''];
     Array.prototype.map.call(
       document.getElementsByClassName('table-cont-name'),
       function(current){
