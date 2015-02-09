@@ -3,6 +3,19 @@ var RouletteSeqence = function() {
   'use strict';
   console.log('RouletteSeqence Init');
   var sequenceNow = false;
+
+  var urlHashUpdate = function(){
+    var names = [];
+    Array.prototype.map.call(
+      document.getElementsByClassName('table-cont-name'),
+      function(current){
+        names.push(current.innerHTML);
+      });
+    window.location.hash = encodeURI(names.reduce(function(sum,item){
+      return sum + '&' + item;
+    }));
+  };
+
   var addName = function(name){
     var nameCont = $('<tr class="table-content seq-checked">' +
                      '  <td class="table-cont-num" >#</td>' +
@@ -18,19 +31,14 @@ var RouletteSeqence = function() {
                      '</tr>');
     nameCont.on('click', '.table-cont-del', function(){
       $(this).closest('.table-content')
-        .hide('fast',function(){$(this).remove();});
+        .hide('fast',function(){
+          $(this).remove();
+          urlHashUpdate();
+        });
     })
       .find('.table-cont-name').html(name);
     nameCont.hide().appendTo('#resultContainer').show('fast');
-    var names = [];
-    Array.prototype.map.call(
-      document.getElementsByClassName('table-cont-name'),
-      function(current){
-        names.push(current.innerHTML);
-      });
-    window.location.hash = names.reduce(function(sum,item){
-      return sum + "&" + item;
-    });;
+    urlHashUpdate();
   };
 
   var shuffle = function(array) {
@@ -104,10 +112,14 @@ var RouletteSeqence = function() {
     return true;
   });
   if (window.location.hash) {
-    var name_list = window.location.hash.replace('#','').split('&');
-    name_list.map(function(current){
-      addName(current);
-    });
+    try {
+      var nameList = decodeURI(window.location.hash).replace('#','').split('&');
+      nameList.map(function(current){
+        addName(current);
+      });
+    } catch(e) {
+      console.log('URI Parse Error!');
+    }
   }
 };
 
